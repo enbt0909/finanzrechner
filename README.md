@@ -1,24 +1,27 @@
-# Finanzrechner
+# Finanzverwaltung
 
-Der Finanzrechner ist eine einfache Webanwendung, die es Benutzern ermöglicht, finanzielle Transaktionen für verschiedene Geschäfte zu verfolgen. Benutzer können Geschäftsname, Zahlungsart (einmalig oder mehrmalig), Summe und die automatisch berechnete Gesamtsumme für jede Transaktion eingeben.
+Diese Anwendung ermöglicht es Benutzern, finanzielle Transaktionen zu verwalten. Benutzer können Geschäftsnamen, Zahlungsarten und Beträge für ihre Transaktionen angeben. Die Anwendung speichert diese Transaktionen und zeigt sie in einer Übersichtstabelle sowie in einem Kontoauszug an. Zusätzlich wird die Gesamtsumme aller Transaktionen berechnet und angezeigt.
 
 ## Funktionen
 
-- **Eingabe von Transaktionen**: Benutzer können Geschäftsname, Zahlungsart und Summe für jede Transaktion eingeben.
-- **Automatische Berechnung der Gesamtsumme**: Die Anwendung berechnet automatisch die Gesamtsumme aller eingegebenen Transaktionen.
-- **Bearbeitbare Tabelle**: Die Tabelle mit den Transaktionsdaten ist bearbeitbar, sodass Benutzer Informationen direkt in der Tabelle ändern können.
+- **Transaktion Hinzufügen**: Benutzer können neue Transaktionen mit Geschäftsname, Zahlungsart und Betrag hinzufügen.
+- **Übersichtstabelle**: Zeigt alle hinzugefügten Transaktionen in einer Tabelle an.
+- **Kontoauszug**: Zeigt alle Transaktionen mit Datum in einer separaten Tabelle an.
+- **Gesamtsumme**: Berechnet und zeigt die Gesamtsumme aller Transaktionen an.
+- **Speicherung**: Transaktionen werden im LocalStorage des Browsers gespeichert, sodass sie auch nach dem Neuladen der Seite erhalten bleiben.
 
 ## Technologien
 
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
 
-## Installation
+## Setup
 
-Um den Finanzrechner zu verwenden, klonen Sie einfach dieses Repository und öffnen Sie die `index.html` Datei in einem Webbrowser Ihrer Wahl.
+Um die Anwendung zu starten, öffnen Sie einfach [https://enbt0909.github.io/finanzrechner/](https://enbt0909.github.io/finanzrechner/) in einem Webbrowser.
 
-```bash
-git clone https://example.com/finanzrechner.git
-cd finanzrechner
-// Öffnen Sie index.html in Ihrem Webbrowser
+## Struktur
+
+- `index.html`: Die Hauptseite der Anwendung.
+- `main.css`: Stildefinitionen für die Anwendung.
+- `app.js`: JavaScript-Code, der die Logik der Anwendung enthält.
