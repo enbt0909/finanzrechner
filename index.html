@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzrechner</title>
+    <link rel="stylesheet" href="./main.css">
+    <script src="./app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Finanzrechner</h1>
+        <form id="financeForm">
+            <input type="text" id="businessName" name="businessName" required placeholder="Geschäftsname:">
+    
+            <label for="paymentType"><h2>Zahlungsart:</h2></label>
+            <select id="paymentType" name="paymentType" required>
+                <option value="einmalig">Einmalig</option>
+                <option value="mehrmalig">Monatlich</option>
+            </select>
+    
+            <!-- <label for="amount"><h2>Summe:</h2></label> -->
+            <input type="number" id="amount" name="amount" required placeholder="Summe:">
+    
+            <button type="submit">Hinzufügen</button>
+        </form>
+    </header>
+    <main>
+        <section>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Geschäftsname</th>
+                        <th>Zahlungsart</th>
+                        <th>Summe</th>
+                        <th>Gesamtsumme</th>
+                    </tr>
+                </thead>
+                <tbody id="financeTableBody">
+                    <!-- Zeilen werden hier durch JavaScript hinzugefügt -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Gesamtsumme:</td>
+                        <td id="totalSum">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Finanzrechner Eugen Beirit</p>
+    </footer>
+</body>
+</html>
