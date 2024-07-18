@@ -156,8 +156,8 @@ footer {
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        /* padding-left: 50%; */
-        text-align: right;
+        /* padding-left: 10%; */
+        text-align: center;
     }
 
     td:before {
