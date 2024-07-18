@@ -80,6 +80,10 @@ h2 {
     font-size: 19px;
 }
 
+.negative {
+    color: red;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
