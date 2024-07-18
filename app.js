@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const paymentType = document.getElementById('paymentType').value;
         const amount = parseFloat(document.getElementById('amount').value);
 
+        addToAccountStatement(businessName, paymentType, amount);
+
         let exists = false;
         financeTableBody.querySelectorAll('tr').forEach(row => {
             if (row.cells[0].textContent === businessName) {
@@ -34,6 +36,36 @@ document.addEventListener('DOMContentLoaded', () => {
         financeForm.reset();
         updateTotalSum();
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        loadStoredTransactions();
+    });
+    
+    function loadStoredTransactions() {
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        transactions.forEach(transaction => {
+            addToAccountStatement(transaction.businessName, transaction.paymentType, transaction.amount);
+        });
+    }
+
+    function addToAccountStatement(businessName, paymentType, amount) {
+        const accountStatementBody = document.getElementById('accountStatementBody');
+        const newRow = accountStatementBody.insertRow();
+        const currentDate = new Date().toLocaleDateString('de-DE');
+
+        newRow.innerHTML = `
+            <td>${businessName}</td>
+            <td>${paymentType}</td>
+            <td>${amount.toFixed(2)}</td>
+            <td>${currentDate}</td>
+        `;
+
+        const transaction = { businessName, paymentType, amount, date: currentDate };
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        transactions.push(transaction);
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+    }
 
     function updateTotalSum() {
         let totalSum = 0;

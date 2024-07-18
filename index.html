@@ -2,54 +2,124 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzrechner</title>
+    <title>Finanzverwaltung</title>
     <link rel="stylesheet" href="./main.css">
-    <script src="./app.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Finanzrechner</h1>
-        <form id="financeForm">
-            <input type="text" id="businessName" name="businessName" required placeholder="Geschäftsname:">
+    <form id="financeForm">
+        <input type="text" id="businessName" placeholder="Geschäftsname" required>
+        <input type="text" id="paymentType" placeholder="Zahlungsart" required>
+        <input type="number" id="amount" placeholder="Betrag" step="0.01" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
     
-            <label for="paymentType"><h2>Zahlungsart:</h2></label>
-            <select id="paymentType" name="paymentType" required>
-                <option value="einmalig">Einmalig</option>
-                <option value="mehrmalig">Monatlich</option>
-            </select>
+    <h2>Übersicht</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Geschäftsname</th>
+                <th>Zahlungsart</th>
+                <th>Betrag</th>
+            </tr>
+        </thead>
+        <tbody id="financeTableBody"></tbody>
+    </table>
     
-            <!-- <label for="amount"><h2>Summe:</h2></label> -->
-            <input type="number" id="amount" name="amount" required placeholder="Summe:">
+    <p>Gesamtsumme: <span id="totalSum">0.00</span></p>
+
+    <h2>Kontoauszug</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Geschäftsname</th>
+                <th>Zahlungsart</th>
+                <th>Betrag</th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody id="accountStatementBody"></tbody>
+    </table>
     
-            <button type="submit">Hinzufügen</button>
-        </form>
-    </header>
-    <main>
-        <section>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Geschäftsname</th>
-                        <th>Zahlungsart</th>
-                        <th>Summe</th>
-                        <th>Gesamtsumme</th>
-                    </tr>
-                </thead>
-                <tbody id="financeTableBody">
-                    <!-- Zeilen werden hier durch JavaScript hinzugefügt -->
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">Gesamtsumme:</td>
-                        <td id="totalSum">0</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Finanzrechner Eugen Beirit</p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const financeForm = document.getElementById('financeForm');
+            const financeTableBody = document.getElementById('financeTableBody');
+            const accountStatementBody = document.getElementById('accountStatementBody');
+            const totalSumElement = document.getElementById('totalSum');
+
+            financeForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const businessName = document.getElementById('businessName').value;
+                const paymentType = document.getElementById('paymentType').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+
+                addToAccountStatement(businessName, paymentType, amount);
+                addOrUpdateTableRow(businessName, paymentType, amount);
+
+                financeForm.reset();
+                updateTotalSum();
+            });
+
+            loadStoredTransactions();
+
+            function loadStoredTransactions() {
+                const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+                transactions.forEach(transaction => {
+                    addToAccountStatement(transaction.businessName, transaction.paymentType, parseFloat(transaction.amount), transaction.date);
+                    addOrUpdateTableRow(transaction.businessName, transaction.paymentType, parseFloat(transaction.amount), false);
+                });
+                updateTotalSum();
+            }
+
+            function addToAccountStatement(businessName, paymentType, amount, date = null) {
+                const currentDate = date || new Date().toLocaleDateString('de-DE');
+                const transaction = { businessName, paymentType, amount, date: currentDate };
+                let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+                transactions.push(transaction);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                
+                const newRow = accountStatementBody.insertRow();
+                newRow.innerHTML = `
+                    <td>${businessName}</td>
+                    <td>${paymentType}</td>
+                    <td>${amount.toFixed(2)}</td>
+                    <td>${currentDate}</td>
+                `;
+            }
+
+            function addOrUpdateTableRow(businessName, paymentType, amount, isNewTransaction = true) {
+                let exists = false;
+                financeTableBody.querySelectorAll('tr').forEach(row => {
+                    if (row.cells[0].textContent === businessName) {
+                        exists = true;
+                        if (isNewTransaction) {
+                            let currentAmount = parseFloat(row.cells[2].textContent);
+                            currentAmount += amount;
+                            row.cells[2].textContent = currentAmount.toFixed(2);
+                        }
+                    }
+                });
+
+                if (!exists) {
+                    const newRow = financeTableBody.insertRow();
+                    newRow.innerHTML = `
+                        <td>${businessName}</td>
+                        <td>${paymentType}</td>
+                        <td>${amount.toFixed(2)}</td>
+                    `;
+                }
+            }
+
+            function updateTotalSum() {
+                let totalSum = 0;
+                financeTableBody.querySelectorAll('tr').forEach(row => {
+                    const amount = parseFloat(row.cells[2].textContent);
+                    totalSum += amount;
+                });
+                totalSumElement.textContent = totalSum.toFixed(2);
+            }
+        });
+    </script>
 </body>
 </html>
