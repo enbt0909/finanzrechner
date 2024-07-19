@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountStatementBody = document.getElementById('accountStatementBody');
     const totalSumElement = document.getElementById('totalSum');
 
+    setTimeout(function() {
+        var knockoutElement = document.querySelector('.header');
+        if (knockoutElement) {
+            knockoutElement.classList.add('hidden');
+        }
+    }, 3500);
+
     financeForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -11,9 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const paymentType = document.getElementById('paymentType').value;
         const amount = parseFloat(document.getElementById('amount').value);
 
-        console.log(`Submit: ${businessName}, ${paymentType}, ${amount}`);
-
-        addToAccountStatement(businessName, paymentType, amount, true);
+        addToAccountStatement(businessName, paymentType, amount);
         addOrUpdateTableRow(businessName, paymentType, amount);
 
         financeForm.reset();
@@ -24,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadStoredTransactions() {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        console.log('Loaded transactions:', transactions);
         transactions.forEach(transaction => {
             addToAccountStatement(transaction.businessName, transaction.paymentType, parseFloat(transaction.amount), false, transaction.date);
             addOrUpdateTableRow(transaction.businessName, transaction.paymentType, parseFloat(transaction.amount), false);
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
             transactions.push(transaction);
             localStorage.setItem('transactions', JSON.stringify(transactions));
-            console.log('Saved transaction:', transaction);
         }
 
         const newRow = accountStatementBody.insertRow();
@@ -47,8 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${businessName}</td>
             <td>${paymentType}</td>
             <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)}</td>
-            <td>${currentDate}</td>
+            <td>${currentDate} <span class="remove-btn" style="color: red; cursor: pointer;">&times;</span></td>
         `;
+
+        newRow.querySelector('.remove-btn').addEventListener('click', function() {
+            removeTransaction(newRow, businessName, currentDate);
+        });
+    }
+
+    function removeTransaction(row, businessName, date) {
+        row.remove();
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        transactions = transactions.filter(transaction => !(transaction.businessName === businessName && transaction.date === date));
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        updateOverviewTable();
+        updateTotalSum();
     }
 
     function addOrUpdateTableRow(businessName, paymentType, amount, isNewTransaction = true) {
@@ -59,8 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isNewTransaction) {
                     let currentAmount = parseFloat(row.cells[2].textContent);
                     currentAmount += amount;
+                    row.cells[0].textContent = businessName;
+                    row.cells[1].textContent = paymentType;
                     row.cells[2].textContent = currentAmount.toFixed(2);
-                    row.cells[2].className = currentAmount < 0 ? 'negative' : '';
                 }
             }
         });
@@ -73,14 +90,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)}</td>
             `;
         }
+        updateTotalSum();
+    }
+
+    function updateOverviewTable() {
+        financeTableBody.innerHTML = '';
+
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+        transactions.forEach(transaction => {
+            const row = financeTableBody.insertRow();
+            row.innerHTML = `<td>${transaction.businessName}</td><td>${transaction.paymentType}</td><td>${transaction.amount.toFixed(2)}</td><td>${transaction.date}</td>`;
+        });
+        updateTotalSum();
     }
 
     function updateTotalSum() {
-        let totalSum = 0;
-        financeTableBody.querySelectorAll('tr').forEach(row => {
-            const amount = parseFloat(row.cells[2].textContent);
-            totalSum += amount;
-        });
-        totalSumElement.textContent = totalSum.toFixed(2);
+        const euroSign = '€';
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let totalSum = transactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0);
+        totalSumElement.textContent = totalSum.toFixed(2) + ' ' + euroSign;
     }
 });

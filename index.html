@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+    <title>Finanzverwaltung</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzverwaltung</title>
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./main.css">
 </head>
+
 <body translate="no">
+    <div class="header">
+        <video src="./quallen.mp4" autoplay muted loop></video>
+        <svg class="header-text-container">
+          <rect class="header-text-bg" fill="#000" x="0" y="0" width="100" fill-opacity="1" mask="url(#header-text)" />
+          <mask id="header-text">
+            <rect fill="#fff" x="0" y="0" />
+            <text x="50%" y="50%" fill="#000" text-anchor="middle" font-size="50px" transform="rotate(-90, 50%, 50%)">Finanzen</text>
+          </mask>
+        </svg>
+    </div>
     <form id="financeForm">
         <input type="text" id="businessName" placeholder="Geschäftsname" required>
-        <input type="text" id="paymentType" placeholder="Zahlungsart" required>
+        <select id="paymentType" required>
+            <option value="">Zahlungsart wählen</option>
+            <option value="bar">Bar</option>
+            <option value="klarna">Klarna</option>
+            <option value="kreditkarte">Kreditkarte</option>
+            <option value="paypal">PayPal</option>
+            <option value="spende">Spende</option>
+            <option value="überweisung">Überweisung</option>
+        </select>
         <input type="number" id="amount" placeholder="Betrag" step="0.01" required>
         <button type="submit">Hinzufügen</button>
     </form>
-    
-    <h2>Übersicht</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Geschäftsname</th>
-                <th>Zahlungsart</th>
-                <th>Betrag</th>
-            </tr>
-        </thead>
-        <tbody id="financeTableBody"></tbody>
-    </table>
-    
+
+    <div class="info__viewer">
+        <h2>Übersicht</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Geschäftsname</th>
+                    <th>Zahlungsart</th>
+                    <th>Betrag</th>
+                </tr>
+            </thead>
+            <tbody id="financeTableBody"></tbody>
+        </table>
+    </div>
+
     <p>Gesamtsumme: <span id="totalSum">0.00</span></p>
 
-    <h2>Kontoauszug</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Geschäftsname</th>
-                <th>Zahlungsart</th>
-                <th>Betrag</th>
-                <th>Datum</th>
-            </tr>
-        </thead>
-        <tbody id="accountStatementBody"></tbody>
-    </table>
-    
+    <div class="kontoauszug">
+        <h2>Kontoauszug</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Geschäftsname</th>
+                    <th>Zahlungsart</th>
+                    <th>Betrag</th>
+                    <th>Datum</th>
+                </tr>
+            </thead>
+            <tbody id="accountStatementBody"></tbody>
+        </table>
+    </div>
+    </div>
     <script src="./app.js" defer></script>
 </body>
+
 </html>
