@@ -52,6 +52,11 @@ body {
     background: transparent;
 }
 
+#financeForm input:focus {
+    outline: none;
+    border-bottom: .125rem solid #007bff;
+}
+
 ::placeholder { color: #aaa; }
 
 #businessName,
@@ -173,10 +178,7 @@ tfoot td { font-weight: bold; }
     }
 
     tr {
-        border: 1px solid #ccc;
-        margin-bottom: 25px;
-        border-top:  double 3px darksalmon;
-        border-bottom:  double 3px darksalmon;
+        margin-bottom: 50px;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     }
 
