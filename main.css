@@ -56,17 +56,28 @@ button {
     background: transparent;
 }
 
-.eintrag {
-    display: flex;
-    justify-content: space-between;
-    margin: 3.125rem 0; 
-    height: 100vh;
-}
-
 button {
     cursor: pointer;
     background-color: #007bff;
     color: var(--white);
+}
+
+.total__sum_txt {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+    background: rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 1px #000, 2px 2px 2px #000;
+}
+
+#totalSum {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: green;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    text-shadow: 1px 1px 1px #000, 2px 2px 2px #000;
 }
 
 h1,
@@ -87,12 +98,13 @@ h1 {
 
 h2 {
     font-size: 1.125rem; 
+    color: #007bff;
 }
 
 .negative { color: red; }
 
 .info__viewer {
-    height: 100vh;
+    height: max-content;
 }
 
 table {

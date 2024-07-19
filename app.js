@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newRow.innerHTML = `
             <td>${businessName}</td>
             <td>${paymentType}</td>
-            <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)}</td>
+            <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)} €</td>
             <td>${currentDate} <span class="remove-btn" style="color: red; cursor: pointer;">&times;</span></td>
         `;
 
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentAmount += amount;
                     row.cells[0].textContent = businessName;
                     row.cells[1].textContent = paymentType;
-                    row.cells[2].textContent = currentAmount.toFixed(2);
+                    row.cells[2].textContent = currentAmount.toFixed(2) + ' €';
                 }
             }
         });
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             newRow.innerHTML = `
                 <td>${businessName}</td>
                 <td>${paymentType}</td>
-                <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)}</td>
+                <td class="${amount < 0 ? 'negative' : ''}">${amount.toFixed(2)} €</td>
             `;
         }
         updateTotalSum();
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         transactions.forEach(transaction => {
             const row = financeTableBody.insertRow();
-            row.innerHTML = `<td>${transaction.businessName}</td><td>${transaction.paymentType}</td><td>${transaction.amount.toFixed(2)}</td><td>${transaction.date}</td>`;
+            row.innerHTML = `<td>${transaction.businessName}</td><td>${transaction.paymentType}</td><td>${transaction.amount.toFixed(2)} €</td><td>${transaction.date}</td>`;
         });
         updateTotalSum();
     }
