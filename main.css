@@ -36,6 +36,7 @@ body {
 }
 
 #financeForm {
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
 }
@@ -62,7 +63,11 @@ button {
     height: 100vh;
 }
 
-button { cursor: pointer; }
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: var(--white);
+}
 
 h1,
 h2 {
@@ -86,7 +91,9 @@ h2 {
 
 .negative { color: red; }
 
-.info__viewer { height: 100vh; }
+.info__viewer {
+    height: 100vh;
+}
 
 table {
     width: 100%;
@@ -143,7 +150,9 @@ tfoot td { font-weight: bold; }
     tr {
         border: 1px solid #ccc;
         margin-bottom: 25px;
-        border: dashed 5px darksalmon;
+        border-top:  double 3px darksalmon;
+        border-bottom:  double 3px darksalmon;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     }
 
     td {
@@ -173,15 +182,6 @@ tfoot td { font-weight: bold; }
 }
 
 @media (min-width: 768px) {
-    #financeForm {
-        width: 50%;
-    }
-
-    .info__viewer {
-        width: 50%;
-        overflow-y: auto;
-    }
-
     .header {
         background-size: contain;
     }
