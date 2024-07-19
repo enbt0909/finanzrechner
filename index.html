@@ -10,14 +10,7 @@
 
 <body translate="no">
     <div class="header">
-        <video src="./quallen.mp4" autoplay muted loop></video>
-        <svg class="header-text-container">
-          <rect class="header-text-bg" fill="#000" x="0" y="0" width="100" fill-opacity="1" mask="url(#header-text)" />
-          <mask id="header-text">
-            <rect fill="#fff" x="0" y="0" />
-            <text x="50%" y="50%" fill="#000" text-anchor="middle" font-size="50px" transform="rotate(-90, 50%, 50%)">Finanzen</text>
-          </mask>
-        </svg>
+        <h1>Finanzverwalter</h1>
     </div>
     <form id="financeForm">
         <input type="text" id="businessName" placeholder="Geschäftsname" required>
@@ -35,7 +28,7 @@
     </form>
 
     <div class="info__viewer">
-        <h2>Übersicht</h2>
+        <h2>Übersicht:</h2>
         <table>
             <thead>
                 <tr>
@@ -51,7 +44,7 @@
     <p>Gesamtsumme: <span id="totalSum">0.00</span></p>
 
     <div class="kontoauszug">
-        <h2>Kontoauszug</h2>
+        <h2>Kontoauszug:</h2>
         <table>
             <thead>
                 <tr>

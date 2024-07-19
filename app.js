@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (knockoutElement) {
             knockoutElement.classList.add('hidden');
         }
-    }, 3500);
+    }, 5000);
 
     financeForm.addEventListener('submit', (event) => {
         event.preventDefault();
