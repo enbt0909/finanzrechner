@@ -148,6 +148,10 @@ td[contenteditable="true"] {
 
 tfoot td { font-weight: bold; }
 
+.kontoauszug tr {
+    background: #5cd65c43;
+}
+
 @media (max-width: 768px) {
     #financeForm {
         flex-direction: column;
