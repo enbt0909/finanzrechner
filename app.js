@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalSumElement = document.getElementById('totalSum');
 
     setTimeout(function() {
-        var knockoutElement = document.querySelector('.header');
-        if (knockoutElement) {
-            knockoutElement.classList.add('hidden');
+        const headerElement = document.querySelector('.header');
+        if (headerElement) {
+            headerElement.classList.add('hidden');
         }
-    }, 5000);
+    }, 4000);
 
     financeForm.addEventListener('submit', (event) => {
         event.preventDefault();
