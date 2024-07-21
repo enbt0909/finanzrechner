@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (headerElement) {
             headerElement.classList.add('hidden');
         }
-    }, 4000);
+    }, 2500);
 
     financeForm.addEventListener('submit', (event) => {
         event.preventDefault();
