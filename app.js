@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountStatementBody = document.getElementById('accountStatementBody');
     const totalSumElement = document.getElementById('totalSum');
 
-    setTimeout(function() {
-        const headerElement = document.querySelector('.header');
-        if (headerElement) {
-            headerElement.classList.add('hidden');
-        }
-    }, 4000);
+    // setTimeout(function() {
+    //     const headerElement = document.querySelector('.header');
+    //     if (headerElement) {
+    //         headerElement.classList.add('hidden');
+    //     }
+    // }, 4000);
 
     financeForm.addEventListener('submit', (event) => {
         event.preventDefault();

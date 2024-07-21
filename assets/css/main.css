@@ -2,7 +2,7 @@
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --text-color: #333;
     --white: #fff;  
-    --background-header: url('./img/euro.jpg');
+    --background-header: url('./../img/euro.jpg');
     --padding-header: 1.25rem 0;
 }
 
@@ -29,7 +29,7 @@ body {
 .header {
     height: 100vh;
     background-image: var(--background-header);
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     padding: var(--padding-header);
